@@ -114,9 +114,6 @@ function Sudoku( id ) {
 
         // yuk
         await sudoku.rebuildCandidates();
-
-        // yay
-        await sudoku.draw();
     }
 
     // try solve the sudoku by filling in any cells that have only one candidate left
@@ -180,11 +177,14 @@ function Sudoku( id ) {
                     }
                 }
 
-                select.onchange = function(e) {
+                select.onchange = async function(e) {
                     var cellnumber = parseInt( e.target.getAttribute( 'data-cellnumber' ) );
                     var cell = sudoku.getCell( cellnumber );
                     var newValue = parseInt(e.target.value);
                     sudoku.setValue(cell, newValue);
+
+                    await sudoku.draw();
+
                 };
 
                 td.appendChild( select );
