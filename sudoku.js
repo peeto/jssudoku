@@ -151,34 +151,20 @@ function Sudoku( id ) {
 
                 var td = tr.insertCell();
 
-                td.style.margin = '0px';
-                td.style.padding = '0px';
-                if (col == 0 || col == 3 || col == 6) {
-                    td.style.borderLeft = '5px solid black';
-                } else {
-                    td.style.borderLeft = '1px solid gray';
-                }
-                if (col == 2 || col == 5 || col == 8) {
-                    td.style.borderRight = '5px solid black';
-                } else {
-                    td.style.borderRight = '1px solid gray';
-                }
-
                 if (row == 0 || row == 3 || row == 6) {
-                    td.style.borderTop = '5px solid black';
+                    td.className = 'top' + (col == 0 || col == 3 || col == 6 ? 'left' : (col == 1 || col == 4 || col == 7 ? 'center' : 'right'));
+                } else if (row == 1 || row == 4 || row == 7) {
+                    td.className = 'middle' + (col == 0 || col == 3 || col == 6 ? 'left' : (col == 1 || col == 4 || col == 7 ? 'center' : 'right'));
                 } else {
-                    td.style.borderTop = '1px solid gray';
-                }
-                if (row == 2 || row == 5 || row == 8) {
-                    td.style.borderBottom = '5px solid black';
-                } else {
-                    td.style.borderBottom = '1px solid gray';
+                    td.className = 'bottom' + (col == 0 || col == 3 || col == 6 ? 'left' : (col == 1 || col == 4 || col == 7 ? 'center' : 'right'));
                 }
 
                 var select = document.createElement( 'select' );
                 select.setAttribute( 'data-cellnumber', cellnumber );
-                if ( cell.value == 0) {
-                    select.style.backgroundColor = 'lightgray';
+                if ( cell.value == 0 ) {
+                    select.className = 'empty';
+                } else {
+                    select.className = 'hasvalue';
                 }
 
 
@@ -207,16 +193,15 @@ function Sudoku( id ) {
         }
 
         var div = document.createElement('div');
+        div.className = 'jssudoku';
 
         var helpButton = document.createElement( 'button' );
-        helpButton.style.margin = '4px';
         helpButton.innerHTML = 'Try help';
         helpButton.onclick = function() {
             sudoku.solve();
         }
 
         var solveButton = document.createElement( 'button' );
-        solveButton.style.margin = '4px';
         solveButton.innerHTML = 'Try solve';
         solveButton.onclick = function() {
             sudoku.solveAll();
