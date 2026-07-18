@@ -340,6 +340,15 @@ function Sudoku(id, logging = false) {
         return true;
     }
 
+    this.clearBoard = function () {
+        for (var i = 0; i < 81; i++) {
+            var cell = sudoku.cells[i];
+            sudoku.setValue(cell, 0);
+        }
+        sudoku.draw();
+        return true;
+    }
+
     this.loadExample = function (url = 'puzzles/example.json') {
         return fetch(url)
             .then(function (response) {
@@ -453,9 +462,16 @@ function Sudoku(id, logging = false) {
             sudoku.solve();
         }
 
+        var clearButton = document.createElement('button');
+        clearButton.innerHTML = 'Clear';
+        clearButton.onclick = function () {
+            sudoku.clearBoard();
+        }
+
         div.appendChild(table);
         div.appendChild(exampleButton);
         div.appendChild(solveButton);
+        div.appendChild(clearButton);
 
         this.container.appendChild(div);
         if (sudoku.logging) console.groupEnd();
