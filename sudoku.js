@@ -135,11 +135,7 @@ function Sudoku(id, logging = false) {
 
     // try solve the sudoku by resolving the full board and redrawing the UI
     this.solve = function () {
-        var solved = sudoku.solveAll();
-        if (solved) {
-            sudoku.draw();
-        }
-        return solved;
+        return sudoku.solveAll();
     }
 
     // solve the puzzle using constraint propagation and backtracking
