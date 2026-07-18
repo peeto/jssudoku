@@ -1,0 +1,27 @@
+{
+  "name": "Example puzzle",
+  "clues": [
+    { "cell": 1, "value": 2 },
+    { "cell": 5, "value": 7 },
+    { "cell": 8, "value": 4 },
+    { "cell": 16, "value": 2 },
+    { "cell": 24, "value": 9 },
+    { "cell": 26, "value": 6 },
+    { "cell": 27, "value": 8 },
+    { "cell": 28, "value": 5 },
+    { "cell": 33, "value": 2 },
+    { "cell": 37, "value": 7 },
+    { "cell": 39, "value": 9 },
+    { "cell": 41, "value": 4 },
+    { "cell": 43, "value": 6 },
+    { "cell": 45, "value": 1 },
+    { "cell": 49, "value": 5 },
+    { "cell": 54, "value": 9 },
+    { "cell": 55, "value": 4 },
+    { "cell": 56, "value": 7 },
+    { "cell": 58, "value": 8 },
+    { "cell": 66, "value": 2 },
+    { "cell": 74, "value": 1 },
+    { "cell": 77, "value": 6 }
+  ]
+}
