@@ -43,11 +43,6 @@ function sudokuCell(row, col, value = 0, logging = false) {
         }
     }
 
-    // does cell have no candidates
-    this.isCellBroken = function () {
-        return this.value == 0 && this.candidates.length == 1;
-    }
-
     // initialize candidates based on the initial value
     this.setCandidatesForValue();
 
@@ -83,20 +78,15 @@ function Sudoku(id, logging = false) {
         return cells;
     }
 
-    // reset candidates for all cells to their initial state based on their current value
-    this.resetCandidates = function () {
-        for (var i = 0; i < 81; i++) {
-            sudoku.cells[i].setCandidatesForValue();
-        }
-    }
-
     // rebuild candidates for all cells based on the current values in the grid
     this.rebuildCandidates = function () {
         // this was horrible, any value change can affect all the candidates in the grid,
         // so we have to reset all candidates
         if (sudoku.logging) console.groupCollapsed('Rebuilding candidates');
 
-        sudoku.resetCandidates();
+        for (var i = 0; i < 81; i++) {
+            sudoku.cells[i].setCandidatesForValue();
+        }
 
         for (var i = 0; i < 81; i++) {
             var cell = sudoku.getCell(i);
@@ -141,19 +131,6 @@ function Sudoku(id, logging = false) {
     // determine whether two cells share a row, column, or box, regardless of whether they are filled
     this.isCellPeer = function (cell1, cell2) {
         return cell1.row == cell2.row || cell1.col == cell2.col || cell1.cellgroup == cell2.cellgroup;
-    }
-
-    // the 3 rules to sudoku: no duplicate values in the same row, column, or 3x3 group
-    this.isCellCollision = function (cell1, cell2) {
-        return cell1.value != 0 && cell2.value != 0 && sudoku.isCellPeer(cell1, cell2);
-    }
-
-    this.isPuzzleBroken = function () {
-        return false;
-    }
-
-    this.bruteSolve = function () {
-        return sudoku.solveAll();
     }
 
     // try solve the sudoku by resolving the full board and redrawing the UI
@@ -459,7 +436,9 @@ function Sudoku(id, logging = false) {
         var solveButton = document.createElement('button');
         solveButton.innerHTML = 'Solve';
         solveButton.onclick = function () {
-            sudoku.solve();
+            if (!sudoku.solve()) {
+                window.alert('Puzzle cannot be solved');
+            }   
         }
 
         var clearButton = document.createElement('button');
